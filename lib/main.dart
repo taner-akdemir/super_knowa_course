@@ -91,12 +91,37 @@ class Home extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (ctx) {
+                  return Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text("info-1"), Text("3 dk önce")],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
             icon: Icon(Icons.notifications),
             color: Colors.purple,
             iconSize: 32,
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.purple,
+        child: Icon(Icons.add_a_photo, color: Colors.white,)
       ),
       body: SizedBox(
         height: double.infinity,
@@ -119,7 +144,10 @@ class Home extends StatelessWidget {
                 itemCount: profiles.length,
                 itemBuilder: (BuildContext context, int index) {
                   Map<String, dynamic> profile = profiles[index];
-                  return ProfileCard( name: profile["name"], image: profile["image"]);
+                  return ProfileCard(
+                    name: profile["name"],
+                    image: profile["image"],
+                  );
                 },
               ),
             ),
@@ -127,17 +155,20 @@ class Home extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemCount: profiles.length,
-                  itemBuilder: (BuildContext context, int index){
-                    Map<String, dynamic> profile = profiles[index];
-                return ShareCard(name: profile["name"], content: "Resim Açıklaması", image: profile["image"], profileImagePath: profile["image"],);
-              }),
-            )
-
+                itemBuilder: (BuildContext context, int index) {
+                  Map<String, dynamic> profile = profiles[index];
+                  return ShareCard(
+                    name: profile["name"],
+                    content: "Resim Açıklaması",
+                    image: profile["image"],
+                    profileImagePath: profile["image"],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

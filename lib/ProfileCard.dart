@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_knowa_course/profile_screen.dart';
 
 class ProfileCard extends StatelessWidget {
   final String name, image;
@@ -7,42 +8,52 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8, left: 8),
-      child: Column(
-        children: [
-          Stack(
-            alignment: Alignment.topRight,
+    return Material(
+      child: InkWell(
+        onTap:  () async {
+          Future<dynamic> returnedData = Navigator.push(
+              context,
+              MaterialPageRoute(builder: (ctx) => ProfileScreen(name: name, userName: name, profileImage: image, bgImage: image,)));
+          debugPrint(await returnedData);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8, left: 8),
+          child: Column(
             children: [
-              Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 2, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(35),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(image),
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 2, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(35),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(image),
+                      ),
+                    ),
                   ),
-                ),
+      
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 2, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 2, color: Colors.white),
-                ),
-              ),
+      
+              SizedBox(height: 5),
+              Text(name, style: TextStyle(fontSize: 15, color: Colors.black)),
             ],
           ),
-
-          SizedBox(height: 5),
-          Text(name, style: TextStyle(fontSize: 15, color: Colors.black)),
-        ],
+        ),
       ),
     );
   }
