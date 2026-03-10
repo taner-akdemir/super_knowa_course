@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ShareCard extends StatelessWidget {
-  const ShareCard({super.key});
+  final String profileImagePath, image, name, content;
+  const ShareCard({super.key, required this.image, required this.name, required this.profileImagePath, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ShareCard extends StatelessWidget {
         elevation: 1,
         borderRadius: BorderRadius.circular(15),
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
           width: double.infinity,
           height: 400,
           decoration: BoxDecoration(
@@ -31,7 +32,7 @@ class ShareCard extends StatelessWidget {
                       color: Colors.indigo,
                       image: DecorationImage(
                         image: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_1280.jpg",
+                            profileImagePath
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -42,7 +43,7 @@ class ShareCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Rıza",
+                        name,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -65,12 +66,12 @@ class ShareCard extends StatelessWidget {
               ),
               SizedBox(height: 15),
               Text(
-                "Resim açıklaması",
+                content,
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
               SizedBox(height: 20),
               Image.network(
-                "https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_1280.jpg",
+               image,
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
@@ -79,26 +80,34 @@ class ShareCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CustomIconButton(
-                    text: "Beğen",
-                    icon: Icons.favorite,
-                    callback: () {
-                      debugPrint("beğen");
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: CustomIconButton(
+                      text: "Beğen",
+                      icon: Icons.favorite,
+                      callback: () {
+                        debugPrint("beğen");
+                      },
+                    ),
                   ),
-                  CustomIconButton(
-                    text: "Yorum Yap",
-                    icon: Icons.comment,
-                    callback: () {
-                      debugPrint("yorum");
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: CustomIconButton(
+                      text: "Yorum Yap",
+                      icon: Icons.comment,
+                      callback: () {
+                        debugPrint("yorum");
+                      },
+                    ),
                   ),
-                  CustomIconButton(
-                    text: "Paylaş",
-                    icon: Icons.share,
-                    callback: () {
-                      debugPrint("paylaş");
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: TextButton.icon(
+                      onPressed: () {
+                        debugPrint("paylaş");
+                      },
+                      icon: Icon(Icons.share), label: Text("Paylaş"),
+                    ),
                   ),
                 ],
               ),
@@ -125,6 +134,7 @@ class CustomIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: InkWell(
         onTap: () {
           callback();

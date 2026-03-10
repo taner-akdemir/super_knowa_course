@@ -98,32 +98,43 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0, 3),
-                  blurRadius: 5,
-                ),
-              ],
+      body: SizedBox(
+        height: double.infinity,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 3),
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: profiles.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Map<String, dynamic> profile = profiles[index];
+                  return ProfileCard( name: profile["name"], image: profile["image"]);
+                },
+              ),
             ),
-            height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: profiles.length,
-              itemBuilder: (BuildContext context, int index) {
-                Map<String, dynamic> profile = profiles[index];
-                return ProfileCard( name: profile["name"], image: profile["image"]);
-              },
-            ),
-          ),
-          SizedBox(height: 10),
-          ShareCard(),
-        ],
+            SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: profiles.length,
+                  itemBuilder: (BuildContext context, int index){
+                    Map<String, dynamic> profile = profiles[index];
+                return ShareCard(name: profile["name"], content: "Resim Açıklaması", image: profile["image"], profileImagePath: profile["image"],);
+              }),
+            )
+
+          ],
+        ),
       ),
     );
   }
