@@ -79,10 +79,27 @@ class ShareCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-
-                  CustomIconButton(text: "Beğen", icon: Icons.favorite),
-                  CustomIconButton(text: "Yorum Yap", icon: Icons.comment),
-                  CustomIconButton(text: "Paylaş", icon: Icons.share),
+                  CustomIconButton(
+                    text: "Beğen",
+                    icon: Icons.favorite,
+                    callback: () {
+                      debugPrint("beğen");
+                    },
+                  ),
+                  CustomIconButton(
+                    text: "Yorum Yap",
+                    icon: Icons.comment,
+                    callback: () {
+                      debugPrint("yorum");
+                    },
+                  ),
+                  CustomIconButton(
+                    text: "Paylaş",
+                    icon: Icons.share,
+                    callback: () {
+                      debugPrint("paylaş");
+                    },
+                  ),
                 ],
               ),
             ],
@@ -96,21 +113,28 @@ class ShareCard extends StatelessWidget {
 class CustomIconButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final Function() callback;
+
   const CustomIconButton({
-    super.key, required this.text, required this.icon,
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.callback,
   });
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: (){},
+        onTap: () {
+          callback();
+        },
         child: Container(
           padding: EdgeInsets.all(6),
           child: Row(
             children: [
               Icon(icon, color: Colors.grey),
-              SizedBox(width: 4,),
+              SizedBox(width: 4),
               Text(
                 text,
                 style: TextStyle(
